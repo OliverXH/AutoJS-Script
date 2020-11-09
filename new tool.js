@@ -24,10 +24,10 @@ Time.prototype.start = function () {
 }
 Time.prototype.getElapsed = function () {
     this._current = Date.now();
-    return (this._current - this._start);
+    return (this._current - this._start) / 1000;
 }
 Time.prototype.getDelta = function () {
-    this._delta = (Date.now() - this._current);
+    this._delta = (Date.now() - this._current) / 1000;
     this._current = Date.now();
     return this._delta;
 }
@@ -74,22 +74,16 @@ let delta = null;
 
 /* -------- */
 
-let t = new Time();
 let setT;
-let deltaT = 2000;
+let deltaT;
 
 function run() {
 
-    if (setT) clearInterval(setT);
+    if (setT) clearTimeout(setT);
 
-    if (stop) {
-        log("结束！");
-        exit();
-    }
-    else
-        setT = setInterval(run, deltaT);
+    setT = setTimeout(run, deltaT);
 
-    t.start();
+    time.start();
 
     /* ------ */
 
@@ -100,7 +94,7 @@ function run() {
     }
 
     delta = time.getElapsed();
-    if (delta > 200000 && gaming) {
+    if (delta > 200 && gaming) {
         stopGame(img);
         time.start();
     }
@@ -110,16 +104,46 @@ function run() {
         playGame(img);
     }
 
-    /* ------ */
-    deltaT = t.getElapsed();
-    // log(deltaT);
+    if (stop) {
+        log("结束！");
+        clearInterval(running);
+        exit();
+    }
 
+    /* ------ */
+    deltaT = time.getDelta();
 }
 
 run();
 
-
 /* -------- */
+
+// let running = setInterval(() => {
+
+//     img = captureScreen();
+
+//     if (!gaming) {
+//         gaming = checkMode(img);
+//     }
+
+//     delta = time.getElapsed();
+//     if (delta > 200 && gaming) {
+//         stopGame(img);
+//         time.start();
+//     }
+
+//     /* playing */
+//     if (gaming) {
+//         playGame(img);
+//     }
+
+//     if (stop) {
+//         log("结束！");
+//         clearInterval(running);
+//         exit();
+//     }
+
+// }, 250);
 
 function playGame(img) {
     switch (checkDeath(img)) {  // death
@@ -145,13 +169,12 @@ function playGame(img) {
                 let px = theta * k;
 
                 if (length > 4) {
-                    swipe(point.x, point.y, point.x + px, point.y - 100 * random, 350);
+                    swipe(point.x, point.y, point.x + px, point.y - 100 * random, 400);
                     if (length > 160)
                         click(1630, 960);   // lock on target
                 }
                 else
-                    // click(point.x, point.y);
-                    press(point.x, point.y, 350);
+                    click(point.x, point.y);
             } else {
                 // lose target
                 // turn around
