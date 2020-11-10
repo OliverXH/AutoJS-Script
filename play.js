@@ -7,6 +7,7 @@ let gameOver = images.fromBase64("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA
 
 let settleMenu = images.fromBase64("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAH0AAAB9CAYAAACPgGwlAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAaaSURBVHhe7d3fT1NnHMfx74GWDVZpSwBBhxR/LVMk/FIztxgXNy/moiaL2YVX2x8gXrgx3QXcbG7Jkk2z7crEK7e4zLm5eMGmmctkEySCqGE6UEFAxooilOL6c+c5fTRKKG3haXvY9/MyJz7nlNDKm/P0tD2tWv7yyv4whZ0ETGhhLX9F5Yg+yotsAAZCGXIAjCA6Q4jOEKIzhOgMITpDiM4QojOE6AwhOkOIzhCiM4ToDCE6Q4jOEKIzhOgMITpDiM4QojOE6AwhOkOIzhCiM4ToDCE6Q4jOEKIzhOgMITpDiM4QojOE6AwhOkOIzhCiM6Tlr6zCBw3NVjgsBzFomhyYQkhzbd6mR9cQfRY8fb1yNDPbklI5MoFwGJ8uxRGiM4ToDCE6Q4jOEKIzhOgMITpDiM4QojOE6AwhOkOIzhCiM4ToDCE6Q4jOEKIzZIroGZpGlsxMsloslCUWa+RvsS62i8tBnbSdI5eZkUEZxqJRdeliqi1/nhYVFZLNZjOC+wIB8ng8NDg0TBeudFF77wCFQmF9CVFQX8xgvp4jl/LoIrbYe7dUraZNL6yl5WUuctjt8tLo7o2OUs/NW3T2fBs1tV+hYDD98RE9BjFBW/Vpe2ttBW3fspnKXLP/Qdzo7aUfms7QqQudFNBnhDhPRFYO0Wcg7pMXOXKpbtcbtLamSv8FmPt9dFj/09rWTgePfkuD98f1f0vq0+MU6Cg0PXj5s8X0ZWM9raupVhJcEN9nfW01fdH4HpUvLtKvR14AMSU1utjDXfkO+rThXbLn5sqt0QWDQfL5/Y8WsR6L056rf/96Ks1zGr9gEFvSpvfIHr6QPmvYZxy4xSKm52++/5F+u9hprIt8L9VU0Js7thnrsfgDftrdeIC6BoZTdh+P6X2KYruNPti7O67gD41PTNLl/qFHy4R3Ul4Sm9VipQ/31lGRfr0ws6REt2Rm0J5dO+Oa0lVyOOz6weJO42EhRKf8pyOm5df0h2Xr9KP0RIknaqwW8cxc5Nk5sZ4I8dXr9evdWrsmsgGmlelY+ly9/uPKlutzJqbzd97aRXlOp9wSH3EMYLVkUO3KZbSxspw2Vq02nrgpLMiXXxEf8X0K9IO6U+dakv4wznf/vhzNLMvukCNTCCuNbuzlNWvo9S2bIxsSVFhQQK4lJY+WRIM/lOd00FBfH3XfGZZbkmO+Rlc7vet72csvrpcr6SP29k0b0n87zEppdPG4XEzJszUxOUmjY2NyGTfWZ2tFWRlenYtCafRq1+K4XjyZjrj//fr4Sdpet99YdtTto2MnTspLE5fntFPFkmK5Bo9TFl1MqesqVsk1c9hQiaP46Sjd04sXFsqRCei/hKa6PSaiNLotJ0eO0k/cmz+To+yR6P+K0ugWi1WOzCHLaq7bYxZKo/v9Pjkyh3/9fjmCxymNPj7hlaP0E8/FTXgmIivwBKXRB4f+liMT0B8CDgwl9xm5+UpZdPE4u6XzatKf746XuB3NHZHX5uFJSvf0jr47xlmrZjByb5Su9Jto5jERpdGF6z035Ci9rnX3yBFMpTa6PqWeaW6hUJqnePGGiF9+b5FrMJXS6CL1z5e66Ppf6d3LrnV30+nOP+UaTKV8ehd7+4mm03GdyZoM4s0PJ5rOyDWYjvLoYm9var9Kza0XUn4kbxyxt7ZR08WrcgtMR/2erhM//INffUfukbtyS3zEy9/iNXBjSfD8OGHYPUKHjh6XaxBNUqILbo+X9n9yiLwJnAjhsC+g2qUlxlJTVpLQ2bQer5fe16/PncBp01wl/b1sRbk2OvJxA2U/9bTxmrtqYlbxPnhAb9c30NB4ap8Gxpsdohga89Cexo/on5ER46GUSuL7DbvdVNd4IOXB5zPlp0BPZ2Riks7+0UJFTicVFxUab0aYy14v9m6fP0jNLW3U+Plhuj06Ji9JLZwCHYPXF6CzFy+Re3CA8vX4DnuucaKDEM8vgAgtlkAgSNd6btCRY8fp8KnT5E3jy6fzNXrKP4lCEIlfrVxlfBLFsjIX5TkcUfd+EVp84sTde6PUffMW/Xq+lX7q6JKXphc+lGAOKksX0Vr5mTM52dmUZc3Sp2+fceRvfObM5S7q6BuUX20eiM4Qjt5h3kB0hhCdIURnCNEZQnSGEJ0hRGcI0RlCdIYQnSFEZwjRGUJ0hhCdIURnCNEZQnSGEJ0hRGcI0RlCdIYQnSFEZwjRGUJ0hhCdIc31yrZ+CmmJ/X9aYBi/fUuOZragZPb/r41yWjj0H0bsG8o13ET0AAAAAElFTkSuQmCC");
 
+
 // 请求横屏截图
 if (!requestScreenCapture()) {
     toast("请求截图失败");
@@ -32,22 +33,9 @@ Time.prototype.getDelta = function () {
     return this._delta;
 }
 
+console.show();
+
 let stop = false;
-
-let window = floaty.window(
-    <vertical>
-        <button id="stop" text="stop script" style="Widget.AppCompat.Button.Colored" alpha="0.5" />
-    </vertical>
-);
-
-window.stop.click(() => {
-    stop = true;
-});
-
-let k = 635 * 2 / Math.PI;
-
-let gaming = false;
-// let gaming = true;
 
 let selectRobot = (function () {
 
@@ -67,10 +55,37 @@ let selectRobot = (function () {
 
 })();
 
+let k = 635 * 2 / Math.PI;
+
+// let gaming = false;
+let gaming = true;
+
 let time = new Time();
 
 let img = null;
 let delta = null;
+
+let random, point, box;
+
+/* -------- */
+
+let window = floaty.window(
+    <vertical>
+        <button id="start" text="start" style="Widget.AppCompat.Button.Colored" alpha="0.5" />
+        <button id="stop" text="stop" style="Widget.AppCompat.Button.Colored" alpha="0.5" />
+    </vertical>
+);
+
+window.start.click(() => {
+    stop = false;
+    time.start();
+    run();
+});
+window.stop.click(() => {
+    stop = true;
+});
+
+setInterval(()=>{}, 600000);
 
 /* -------- */
 
@@ -82,11 +97,12 @@ function run() {
 
     if (setT) clearInterval(setT);
 
-    if (stop) {
-        log("结束！");
-        exit();
-    }
-    else
+    // if (stop) {
+    //     log("结束！");
+    //     exit();
+    // }
+    // else
+    if (!stop)
         setT = setInterval(run, deltaT);
 
     t.start();
@@ -116,7 +132,7 @@ function run() {
 
 }
 
-run();
+// run();
 
 
 /* -------- */
@@ -128,13 +144,13 @@ function playGame(img) {
             break;
 
         case 1:
-            let random = Math.random();
-            let point = {
+            random = Math.random();
+            point = {
                 x: 1570 + 140 * random,
                 y: 730 + 140 * random
             }
 
-            let box = getBoundingBox(img);
+            box = getBoundingBox(img);
 
             if (box !== null) {
                 // 135°
@@ -155,7 +171,6 @@ function playGame(img) {
             } else {
                 // lose target
                 // turn around
-                let random = Math.random();
                 swipe(400 + 1000 * random, 200 + 200 * random, 900, 200 + 200 * random, 400);
             }
 
@@ -268,4 +283,3 @@ function turnRight(start, range) {
 
 }
 
-console.show();
