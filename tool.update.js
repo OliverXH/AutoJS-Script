@@ -1,4 +1,6 @@
 // let Time = require('test/utils.js');
+// console.show();
+
 function Time() {
     this._start = Date.now();
     this._current = this._start;
@@ -46,10 +48,18 @@ window.stop.click(() => {
     exit();
 });
 
-let k = 635 * 2 / Math.PI;
+const k = 635 * 2 / Math.PI;
+const searchBox = {
+    width: 500,
+    height: 400
+}
 
-let gaming = false;
-// let gaming = true;
+let options = {
+    region: [0, 0, 1920, 1080]
+}
+
+// let gaming = false;
+let gaming = true;
 
 let selectRobot = (function () {
 
@@ -59,6 +69,7 @@ let selectRobot = (function () {
         // robot = value ? value : robot;
         if (robot <= 3) {
             click(360 + 300 * robot, 710);
+            sleep(50);
             click(1755, 1035);
             robot++;
         } else {
@@ -74,22 +85,6 @@ let time = new Time();
 let img = captureScreen();
 let delta = 0;
 
-/* -------- */
-/*
-threads.start(function() {
-    setInterval(function() {
-
-        img = captureScreen();
-        log(Date.now());
-
-    }, 200);
-});
-*/
-
-let setT;
-let deltaT = 200;
-let t = new Time();
-
 while (!stop) {
 
     run();
@@ -98,17 +93,15 @@ while (!stop) {
 
 function run(img) {
 
-    /* ------ */
-    // log(100, img);
-
     img = captureScreen();
 
     if (!gaming) {
         gaming = checkMode(img);
     }
 
-    delta = time.getElapsed();
-    if (delta > 180 && gaming) {
+    delta = time.getElapsed();  // 单位为秒 s
+    if (delta > 150 && gaming) {
+        log(delta, "stop");
         stopGame(img);
         time.start();
     }
@@ -118,34 +111,22 @@ function run(img) {
         playGame(img);
     }
 
-    /*if (stop) {
-        log("结束！");
-        clearInterval(running);
-        exit();
-    }*/
-
-    img.recycle();
-
-    sleep(50);
-
-    /* ------ */
-    // deltaT = t.getDelta();
-
-    // setTimeout(run, 10);
-
 }
-
 
 
 /* -------- */
 
 function playGame(img) {
-    switch (checkDeath(img)) {
+    let state = checkDeath(img);
+    // log(state);
+
+    switch (state) {
         // death
         case 0:
             selectRobot(img);
             break;
 
+        // 游戏中
         case 1:
             let random = Math.random();
             let point = {
@@ -185,61 +166,59 @@ function playGame(img) {
 }
 
 function stopGame(img) {
-    switch (checkDeath(img)) {
-        // death
-        case 0:
-            selectRobot(img);
-            break;
 
-        case 1: // live
-            click(1830, 65);
-            sleep(500);
-            click(960, 800);
-            sleep(500);
-            click(760, 660);
-            break;
+    if (!checkDeath(img)) {
+        // death
+        selectRobot(img);
     }
+
+    click(1830, 65);
+    sleep(500);
+    click(960, 800);
+    sleep(500);
+    click(760, 660);
 }
 
 function checkDeath(img) {
-    // 获取在点(100, 100)的颜色值
-    // 坐标系以图片左上角为原点。以图片左侧边为y轴，上侧边为x轴。
-    let color_blue = images.pixel(img, 890, 37);
-    let color_red = images.pixel(img, 1030, 37);
 
-    let col_blue = colors.toString(color_blue);
-    let col_red = colors.toString(color_red);
+    if (images.detectsColor(img, "#ffffff", 28, 34) || images.detectsColor(img, "#ffffff", 25, 150)) {
+        // 游戏中
+        return 1;
+    } else if (images.detectsColor(img, "#b8fffa", 880, 1050)) {
+        // 选择机器人界面
+        return 0;
+    } else {
+        // 其他状态
+        return 2;
+    }
 
-    if (col_blue == "#ff174f68" || col_red == "#ff681616")
-        return 0; // death
-    else if (col_blue == "#ff47c6ff" || col_red == "ffff4545")
-        return 1; // live
-    else
-        return 2; // other state
 }
 
 function getBoundingBox(image) {
 
     let box = {};
-    // let x, y;
 
     // 敌人红框
-    let p_topLeft = images.findMultiColors(image, "#ff3333", [[10, 0, "#ff3333"], [0, 30, "#ff3333"]]);
-    let p_topRight = images.findMultiColors(image, "#ff3333", [[-10, 0, "#ff3333"], [0, 30, "#ff3333"]]);
+    let p_topLeft = images.findMultiColors(image, "#ff3232", [[20, 0, "#ff3232"], [0, 20, "#ff3232"]]/* , options */);
+    let p_bottomRight = images.findMultiColors(image, "#ff3232", [[-20, 0, "#ff3232"], [0, -20, "#ff3232"]]/* , options */);
 
-    if (p_topLeft && p_topRight) {
-        box.x = (p_topLeft.x + p_topRight.x) / 2;
-        box.y = p_topLeft.y + 46;
+    if (p_topLeft && p_bottomRight) {
+        box.x = (p_topLeft.x + p_bottomRight.x) / 2;
+        box.y = (p_topLeft.y + p_bottomRight.y) / 2;
+
+        // options.region = [Math.max(0, box.x - searchBox.width / 2), Math.max(0, box.y - searchBox.height / 2), Math.min(1920 - box.x - searchBox.width / 2, searchBox.width), Math.min(1080 - box.y - searchBox.height / 2, searchBox.height)];
 
         return box;
     }
+
+    // options.region = [0, 0, 1920, 1080];
 
     return null;
 
 }
 
 function checkMode(img) {
-    
+
     //log(200, img);
     // let menu_pos = images.findImage(img, prepareMenu);
 
@@ -268,4 +247,3 @@ function checkMode(img) {
     }
 }
 
-console.show();

@@ -61,13 +61,34 @@ function run() {
     t.start();
 
     /* ------ */
-    
+
     log("kkk");
     sleep(2000);
-    
+
     /* ------ */
     deltaT = t.getElapsed();
 
 }
 
 run();
+
+
+
+function gameLoop() {
+
+}
+
+//新建一个emitter, 并指定回调执行的线程为当前线程
+var sum = events.emitter(threads.currentThread());
+threads.start(function () {
+    var s = 0;
+    //从1加到10000
+    for (var i = 1; i <= 10000; i++) {
+        s += i;
+    }
+    //发送事件result通知主线程接收结果
+    sum.emit('result', s);
+});
+sum.on('result', function (s) {
+    toastLog("sum = " + s + ", 当前线程: " + threads.currentThread());
+});
